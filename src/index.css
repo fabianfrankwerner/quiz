@@ -87,3 +87,39 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.landing {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.landing h1 {
+  line-height: 1;
+  color: var(--color-blue-dark);
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.landing p {
+  color: var(--color-blue-dark);
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.landing button {
+  background-color: var(--color-blue-light);
+  color: var(--color-gray-200);
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  border-radius: 15px;
+  padding: 15px 30px;
+}
+
+.landing button:hover {
+  background-color: var(--color-blue-dark);
+}

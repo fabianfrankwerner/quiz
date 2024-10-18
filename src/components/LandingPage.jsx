@@ -1,9 +1,9 @@
 export default function LandingPage({ startQuiz }) {
   return (
-    <>
+    <div className="landing">
       <h1>Quiz</h1>
-      <p>Test your knowledge.</p>
-      <button onClick={startQuiz}>Start quiz</button>
-    </>
+      <p>Quiz your knowledge.</p>
+      <button onClick={startQuiz}>Start Quiz</button>
+    </div>
   );
 }
