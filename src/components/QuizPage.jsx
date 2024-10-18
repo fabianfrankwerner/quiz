@@ -1,6 +1,4 @@
 import he from "he";
-//he.decode(html)
-
 // questionsWithShuffledAnswers
 
 export default function QuizPage() {
@@ -10,9 +8,14 @@ export default function QuizPage() {
       const questionsWithShuffledAnswers = data.results.map((question) => {
         return {
           ...question,
+          question: he.decode(question.question),
+          correct_answer: he.decode(question.correct_answer),
+          incorrect_answers: question.incorrect_answers.map((answer) =>
+            he.decode(answer)
+          ),
           answers: shuffleArray([
-            ...question.incorrect_answers,
-            question.correct_answer,
+            ...question.incorrect_answers.map((answer) => he.decode(answer)),
+            he.decode(question.correct_answer),
           ]),
         };
       });
