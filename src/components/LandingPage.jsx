@@ -1,9 +1,9 @@
-export default function LandingPage() {
+export default function LandingPage({ startQuiz }) {
   return (
     <>
       <h1>Quiz</h1>
       <p>Test your knowledge.</p>
-      <button>Start quiz</button>
+      <button onClick={startQuiz}>Start quiz</button>
     </>
   );
 }

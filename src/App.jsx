@@ -4,10 +4,15 @@ import QuizPage from "./components/QuizPage";
 
 export default function App() {
   const [quizPage, setQuizPage] = useState(false);
+
+  const startQuiz = () => {
+    setQuizPage(true);
+  };
+
   return (
     <>
-      {quizPage === false && <LandingPage />}
-      {quizPage === true && <QuizPage />}
+      {!quizPage && <LandingPage startQuiz={startQuiz} />}
+      {quizPage && <QuizPage />}
     </>
   );
 }
