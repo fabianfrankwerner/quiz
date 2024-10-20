@@ -67,21 +67,14 @@ export default function QuizPage({ setQuizPage }) {
     fetchQuestions();
   };
 
-  const returnToHome = () => {
-    setQuizPage(false);
-  };
-
   return (
-    <div className="quiz space-y-6">
+    <div className={`quiz ${submitted ? "submitted" : ""}`}>
       {questions.map((question, questionIndex) => (
-        <div
-          key={questionIndex}
-          className="question-container bg-white p-4 rounded-lg shadow"
-        >
-          <h2 className="text-lg font-semibold mb-3">{question.question}</h2>
-          <div className="answers space-y-2">
+        <div key={questionIndex} className="question-container">
+          <h2>{question.question}</h2>
+          <div className="answers">
             {question.answers.map((answer, answerIndex) => (
-              <div key={answerIndex} className="answer flex items-center">
+              <div key={answerIndex} className="answer">
                 <input
                   type="radio"
                   id={`q${questionIndex}-a${answerIndex}`}
@@ -90,19 +83,18 @@ export default function QuizPage({ setQuizPage }) {
                   onChange={() => handleAnswerChange(questionIndex, answer)}
                   disabled={submitted}
                   checked={answers[questionIndex] === answer}
-                  className="mr-2"
                 />
                 <label
                   htmlFor={`q${questionIndex}-a${answerIndex}`}
-                  className={`${
-                    submitted && answer === question.correct_answer
-                      ? "text-green-600 font-semibold"
-                      : submitted &&
-                        answers[questionIndex] === answer &&
-                        answer !== question.correct_answer
-                      ? "text-red-600"
+                  className={
+                    submitted
+                      ? answer === question.correct_answer
+                        ? "correct"
+                        : answers[questionIndex] === answer
+                        ? "incorrect"
+                        : ""
                       : ""
-                  }`}
+                  }
                 >
                   {answer}
                 </label>
@@ -112,34 +104,16 @@ export default function QuizPage({ setQuizPage }) {
         </div>
       ))}
 
-      {!submitted && questions.length > 0 && (
-        <button
-          onClick={handleSubmit}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Submit Answers
+      {!submitted ? (
+        <button className="check-answers" onClick={handleSubmit}>
+          Check answers
         </button>
-      )}
-
-      {submitted && (
-        <div className="results bg-white p-4 rounded-lg shadow">
-          <h2 className="text-xl font-bold mb-4">
-            You got {score} out of {questions.length} questions correct!
-          </h2>
-          <div className="flex space-x-4">
-            <button
-              onClick={playAgain}
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            >
-              Play Again
-            </button>
-            <button
-              onClick={returnToHome}
-              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-            >
-              Return to Home
-            </button>
-          </div>
+      ) : (
+        <div className="score-container">
+          <p className="score-text">
+            You scored {score}/{questions.length} correct answers
+          </p>
+          <button onClick={playAgain}>Play again</button>
         </div>
       )}
     </div>
